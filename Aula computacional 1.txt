@@ -1,0 +1,131 @@
+Exercício 1
+
+(A)
+
+
+L = 10;
+q0 = 10;
+M = 0.1;
+
+
+subplot(2,1,1);
+x = linspace(0,10);
+y1 = -q0*x+1/2*q0*L;
+plot(x,y1)
+title("Caso inicial")
+xlabel("x");
+ylabel("Vy");
+grid on;
+
+subplot(2,1,2);
+y2 = -1/2*q0*x.^2+1/2*q0*L*x-M;
+plot(x,y2)
+grid on;
+xlabel("x");
+ylabel("Mz");
+
+(C)
+Vy é derivada pois Mz é uma parábola com concavidade para baixo (-0.5*q0x^2), ent se espera na derivada na forma: y = -Cx + D (uma reta decrescente) como em Vy
+
+
+(D)
+L = 10;
+q0 = 0.1;
+M = 0.1;
+
+
+subplot(2,1,1);
+x = linspace(0,10);
+y1 = -q0*x+1/2*q0*L;
+plot(x,y1)
+title("Variando q_0 e M")
+xlabel("x");
+ylabel("Vy");
+grid on;
+
+subplot(2,1,2);
+y2 = -1/2*q0*x.^2+1/2*q0*L*x-M;
+plot(x,y2)
+
+grid on;
+xlabel("x");
+ylabel("Mz");
+
+
+
+L = 10;
+q0 = 0;
+M = 0;
+
+
+subplot(2,1,1);
+x = linspace(0,10);
+y1 = -q0*x+1/2*q0*L;
+plot(x,y1)
+title("Para q_0 = 0 e M = 0")
+xlabel("x");
+ylabel("Vy");
+grid on;
+
+subplot(2,1,2);
+y2 = -1/2*q0*x.^2+1/2*q0*L*x-M;
+plot(x,y2)
+grid on;
+xlabel("x");
+ylabel("Mz");
+
+
+(E)
+
+Exercício 2
+
+(A)
+q0 = 10;
+L = 10;
+A = [1];
+b = [-1/2*q0*(L/2)^2+1/2*q0*L*(L/2)-3/32*q0*L^2].';
+M = A \ b
+
+
+(B)
+x = L;
+b = [-q0/L*x^2+2*q0/L*(x-L/2)^2+1/3*q0*L*(x*L/2)^0+1/12*q0*L].';
+Ryc = A \ b
+
+% conferindo a resposta
+b
+y = A*x
+
+% Fazendo por fzero
+f = @(R) -q0/L*x^2+2*q0/L*(x-L/2)^2+1/3*q0*L*(x*L/2)^0+1/12*q0*L - R;
+Ryc = fzero(f, 0)
+
+
+(C)
+x1 = 0;
+x2 = L/2;
+% A = [Ryb c1]
+A = [(x1-L/2) x1
+      (x2-L/2) x2];
+b = [1/3*q0/L*x1^3-2/3*q0/L*(x1-L/2)^3 1/3*q0/L*x2^3-2/3*q0/L*(x2-L/2)^3].';
+x = A\b
+
+% conferindo a resposta
+b
+y = A*x
+
+(D)
+% A = [theta c3 c4]
+A = [0 L/4 1
+     (L - 2*L/4)^0 1 0
+     (L - 3*L/4) L 1];
+ 
+b = [1/2*M*(L/4)^2 -1/2*(2*M/L)*(L-L/4)^2+M*L -1/6*(2*M/L)*(L-L/4)^3+1/2*M*L^2].';
+x = A \ b
+
+
+(E)
+Para achar a resposta a gnt faz x = A \ b onde encontra o vetor resposta "x", para conferir é possível fazer y = A * x, se y = b temos que a solução está certa!
+Exemplo, usando os dados da D:
+b
+y = A*x
